@@ -31,6 +31,12 @@ export class UsersManager{
         return user
     }
 
+    async getUsersByEmail(email) {
+        let user = await this.usersDb.findOne({email:email}).lean()
+        if(!user) throw new Error('Not found')
+        return user
+    }
+
     async deleteUserById(id) {
         let deleteUser = await this.usersDb.deleteOne({_id:id})
         if(!deleteUser) throw new Error('Not found')
