@@ -8,10 +8,11 @@ export async function usersRegisterController(req,res,next){
         // console.log(user)
         const token = generarToken(user)
         res.cookie('authToken', token, {httpOnly: true, signed:true, maxAge:1000 * 60 * 60 * 24})
+        
 
-        res.json(user)
+        res.sendStatus(201)
         
     } catch (error) {
-        res.sendStatus(201).json(error)
+        res.status(400)
     }
 }

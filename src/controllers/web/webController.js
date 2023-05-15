@@ -22,3 +22,20 @@ export function loginController (req,res,next) {
         pageTitle:'Login'
     })
 }
+
+export function profileController (req,res,next) {
+
+    console.log(req.credentials)
+    const user = req.credentials
+
+    res.render('profile', {
+        pageTitle: 'Perfil',
+        welcome: `Bienvenido a tu perfil ${req.credentials.first_name} `,
+        name:user.first_name,
+        lastName:user.last_name,
+        email:user.email,
+        age:user.age,
+        rol:`Su rol es: ${user.rol}`,
+        ifAdmin: user.rol === 'admin'        
+    })
+}

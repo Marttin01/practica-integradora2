@@ -1,19 +1,27 @@
 import { UserManager } from "../../managers/userManager.js"
-import { validarIgualdad } from "../../utils/criptografia.js"
+import { generarToken, hashear, validarIgualdad } from "../../utils/criptografia.js"
 
-export async function loginController (req,res,next){
-    const credentials = req.body
+export async function loginControllerApi (req,res,next){
     try {
-        const usuario = await UserManager.getUsersByEmail(credentials.email)
-        if(!validarIgualdad(credentials.password,usuario.password)){
-            throw new Error('Login failed')
-        }
-
-        const token = generarToken(usuario)
+        const token = generarToken(req.user)
+    
+        console.log(token)
+        
         res.cookie('authToken', token, {httpOnly: true, signed:true, maxAge:1000 * 60 * 60 * 24})
+        
         res.sendStatus(201)
-
+        
     } catch (error) {
-        res.status(401).send({error:'Not found'})
+        res.status(401)
     }
+    // console.log('Paso por aca')
+    // console.log(req.user)
+}
+
+export async function logoutControllerApi (req,res,next) {
+    res.clearCookie('authToken').sendStatus(201)
+}
+
+export async function currentController (req,res,next) {
+    res.json(req.user)
 }

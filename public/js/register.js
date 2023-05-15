@@ -34,9 +34,9 @@ if(formRegister instanceof HTMLFormElement){
                 body: JSON.stringify(dataUser)
             })
 
-            // if(createUser.status === 201) {
-            //     window.location.replace('/profile')
-            // }
+            if(createUser.status === 201) {
+                window.location.replace('/profile')
+            }
 
         }
 

@@ -16,7 +16,7 @@ export function generarToken (data) {
 
 export function decodificarToken(token){
     try {
-        return jwt.verify(token, JWT_SECRET)
+        return  jwt.verify(token, JWT_SECRET)  
     } catch (error) {
         throw new Error('Error de autenticacion: sesion expirada')
     }
